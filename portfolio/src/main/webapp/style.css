@@ -4,6 +4,33 @@
   width: 650px;
 }
 
-#greeting-container {
+#quote-container {
   margin-top: 20px;
 }
+
+/* projects start */
+
+#projects-container {
+    background-color: #ebebeb;
+}
+
+#projects-content {
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+#projects-title {
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 14px;
+    text-align: center;
+    padding-top: 2.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.card-deck {
+    margin-top: 1.5rem;
+}
+
+/* projects end */
