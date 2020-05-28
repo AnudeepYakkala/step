@@ -1,13 +1,3 @@
-#content {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
-}
-
-#quote-container {
-  margin-top: 20px;
-}
-
 .section-title {
     font-family: Arial;
     font-size: 14px;
@@ -17,6 +7,34 @@
     padding-top: 2.5rem;
     padding-bottom: 1.5rem;
 }
+
+/* quote start */
+
+#quote-background {
+    background-color: #bb8f9d;
+}
+
+#quote-content {
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+}
+
+#quote-container {
+  margin-top: 20px;
+}
+
+.ml2 {
+  font-weight: 900;
+  font-size: 3.5em;
+  color: #ffffff;
+}
+
+.ml2 .letter {
+  line-height: 1em;
+}
+
+/* quote end */
 
 /* about me start */
 
