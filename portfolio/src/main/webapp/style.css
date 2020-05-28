@@ -13,9 +13,9 @@
     font-size: 14px;
     font-weight: 600;
     line-height: 14px;
-    text-align: center;
-    padding-top: 2.5rem;
     padding-bottom: 1.5rem;
+    padding-top: 2.5rem;
+    text-align: center;
 }
 
 /* about me start */
@@ -26,18 +26,18 @@
 }
 
 #about-me-content {
+    background-color: #ffffff;
+    border-radius: 12px;
     margin-left: 15%;
     margin-right: 15%;
-    border-radius: 12px;
-    background-color: #ffffff;
 }
 
 .about-me-column {
-    text-align: center;
     margin-left: 15%;
     margin-right: 15%;
     margin-top: 10%;
     margin-bottom: 10%;
+    text-align: center;
 }
 
 .column-title {
@@ -50,13 +50,13 @@
 .column-description {
     font-family: sans-serif;
     font-size: 16px;
-    line-height: 2;
     font-weight: lighter;
+    line-height: 2;
 }
 
 .column-divider {
-    border-right-style: solid;
     border-right-color: #cccccc;
+    border-right-style: solid;
     border-right-width: thin;
 }
 
@@ -109,9 +109,9 @@
 
 #footer-container {
     background-color: #171e28;
-    text-align: center;
-    padding-top: 2rem;
     padding-bottom: 2rem;
+    padding-top: 2rem;
+    text-align: center;
 }
 
 .logo-image {
