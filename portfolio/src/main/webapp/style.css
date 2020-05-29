@@ -26,7 +26,7 @@
 }
 
 #about-me-content {
-    background-color: #ffffff;
+    background-color: #fff;
     border-radius: 12px;
     margin-left: 15%;
     margin-right: 15%;
@@ -55,7 +55,7 @@
 }
 
 .column-divider {
-    border-right-color: #cccccc;
+    border-right-color: #ccc;
     border-right-style: solid;
     border-right-width: thin;
 }
