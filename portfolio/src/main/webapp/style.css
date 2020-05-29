@@ -90,6 +90,7 @@
 
 #projects-container {
     background-color: #ebebeb;
+    padding-bottom: 1.5rem;
 }
 
 #projects-content {
@@ -102,3 +103,23 @@
 }
 
 /* projects end */
+
+/* footer start */
+
+#footer-container {
+    background-color: #171e28;
+    padding-bottom: 2rem;
+    padding-top: 2rem;
+    text-align: center;
+}
+
+.logo-image {
+    height: 30px;
+    width: auto;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/* footer end */
