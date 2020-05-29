@@ -13,12 +13,16 @@
 // limitations under the License.
 
 /**
- * Adds a random Star Wars Quote to the page.
+ * Adds a random quote to the page.
  */
-function addRandomStarWarsQuote() {
+function addRandomQuote() {
   const quotes =
-      ['Help me, Obi-Wan Kenobi. You are my only hope. -Lelia Organa', 'The force will be with you. Always. -Obi Wan Kenobi', 
-      'Never tell me the odds! -Han Solo', 'You can\'t stop change, any more than you can stop the suns from setting. -Shmi Skywalker'];
+      ['You can\'t stop change, any more than you can stop the suns from setting. –Shmi Skywalker', 'You miss 100% of the shots you don’t take. –Wayne Gretzky', 
+      'Challenges are what make life interesting and overcoming them is what makes life meaningful. –Joshua J. Marine', 'A person who never made a mistake never tried anything new. –Albert Einstein', 
+      'Don\'t cry because it\'s over, smile because it happened. Dr. Suess', 'You can\'t go back and change the beginning but you can start where you are and change the ending. –C.S. Lewis', 
+      'I can\'t change the direction of the wind but I can adjust my sails to always reach my destination. –Jimmy Dean', 
+      'A champion is defined not by their wins but by how they can recover when they fall. –Serena Williams', 'Motivation comes from working on things we care about. –Sheryl Sandberg', 
+      'Help me, Obi-Wan Kenobi. You are my only hope. –Lelia Organa', 'The force will be with you. Always. –Obi Wan Kenobi', 'Never tell me the odds! –Han Solo'];
 
   // Pick a random quote.
   const quote = quotes[Math.floor(Math.random() * quotes.length)];
@@ -26,4 +30,19 @@ function addRandomStarWarsQuote() {
   // Add it to the page.
   const quoteContainer = document.getElementById('quote-container');
   quoteContainer.innerText = quote;
+
+  // Source: https://tobiasahlin.com/moving-letters
+  var textWrapper = document.querySelector('.ml2');
+  textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+  anime.timeline({loop: false})
+    .add({
+      targets: '.ml2 .letter',
+      scale: [4,1],
+      opacity: [0,1],
+      translateZ: 0,
+      easing: "easeOutExpo",
+      duration: 950,
+      delay: (el, i) => 70*i
+    })
 }
