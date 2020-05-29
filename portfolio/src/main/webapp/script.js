@@ -45,3 +45,23 @@ function addRandomQuote() {
       delay: (el, i) => 70*i
     })
 }
+
+function contactEmail() {
+    const formData = {
+        'name': $('input[name=name]').val(),
+        'email': $('input[name=email]').val(),
+        'message': $('textarea[name=message]').val()
+    };
+    console.log(formData);
+
+    const subject = formData.name + " - " + formData.email;
+    Email.send({
+    Host : "smtp.gmail.com",
+    Username : "betterbnbcontact@gmail.com",
+    Password : "betterBNB1234",
+    To : "betterbnbcontact@gmail.com",
+    From : "betterbnbcontact@gmail.com,",
+    Subject : subject,
+    Body : formData.message
+    });
+}

@@ -159,3 +159,32 @@ a:hover {
 }
 
 /* footer end */
+
+/* contact form start */
+
+#message-text {
+    font-family: sans-serif;
+    font-size: 40px;
+    margin-top: 10%;
+    padding-bottom: 40px;
+    text-align: center;
+}
+
+#form-container {
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+#buttons {
+    padding-top: 20px;
+}
+
+#title {
+    font-family: Pacifico;
+    font-size: 35px;
+    padding-top: 6rem;
+    text-align: center;
+}
+
+
+/* contact form end */
