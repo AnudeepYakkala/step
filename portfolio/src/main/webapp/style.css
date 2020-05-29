@@ -25,9 +25,9 @@
 }
 
 .ml2 {
+    color: #fff;
     font-size: 3.5em;
     font-weight: 900;
-    color: #ffffff;
 }
 
 .ml2 .letter {
@@ -44,17 +44,17 @@
 }
 
 #about-me-content {
-    background-color: #ffffff;
+    background-color: #fff;
     border-radius: 12px;
     margin-left: 15%;
     margin-right: 15%;
 }
 
 .about-me-column {
+    margin-bottom: 10%;
     margin-left: 15%;
     margin-right: 15%;
     margin-top: 10%;
-    margin-bottom: 10%;
     text-align: center;
 }
 
@@ -73,7 +73,7 @@
 }
 
 .column-divider {
-    border-right-color: #cccccc;
+    border-right-color: #ccc;
     border-right-style: solid;
     border-right-width: thin;
 }
