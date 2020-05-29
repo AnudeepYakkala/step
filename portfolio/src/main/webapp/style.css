@@ -22,15 +22,46 @@
 
 #about-me-container {
     background-color:#537483;
+    padding-bottom: 2.5rem;
 }
 
 #about-me-content {
+    background-color: #fff;
+    border-radius: 12px;
     margin-left: 15%;
     margin-right: 15%;
 }
 
 .about-me-column {
+    margin-bottom: 10%;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-top: 10%;
     text-align: center;
+}
+
+.column-title {
+    font-family: sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    padding-top: 1rem;
+}
+
+.column-description {
+    font-family: sans-serif;
+    font-size: 16px;
+    font-weight: lighter;
+    line-height: 2;
+}
+
+.column-divider {
+    border-right-color: #ccc;
+    border-right-style: solid;
+    border-right-width: thin;
+}
+
+.column-subheader {
+    color: #375592;
 }
 
 /* about me end */
