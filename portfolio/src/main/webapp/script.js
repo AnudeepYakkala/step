@@ -46,7 +46,11 @@ function addRandomQuote() {
     })
 }
 
+/**
+ * Sends an email when someone fills out the contact me page. 
+ */
 function contactEmail() {
+    // Obtain name, email, and message from the contact page.
     const formData = {
         'name': $('input[name=name]').val(),
         'email': $('input[name=email]').val(),
@@ -55,6 +59,8 @@ function contactEmail() {
     console.log(formData);
 
     const subject = formData.name + " - " + formData.email;
+
+    //Send an email containg the name and email in the subject line and the message in the body.
     Email.send({
     Host : "smtp.gmail.com",
     Username : "betterbnbcontact@gmail.com",
