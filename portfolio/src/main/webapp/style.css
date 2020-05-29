@@ -8,6 +8,53 @@
   margin-top: 20px;
 }
 
+.section-title {
+    font-family: Arial;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 14px;
+    padding-bottom: 1.5rem;
+    padding-top: 2.5rem;
+    text-align: center;
+}
+
+/* about me start */
+
+#about-me-container {
+    background-color:#537483;
+}
+
+#about-me-content {
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.about-me-column {
+    text-align: center;
+}
+
+/* about me end */
+
+/* favorite places start */
+
+#favorite-places-container {
+    background-color: #d58266;
+    padding-bottom: 2rem;
+}
+
+#favorite-places-content {
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+}
+
+.carousel-image {
+    height: 50vh;
+    width: auto;
+}
+
+/* favorite places end */
+
 /* projects start */
 
 #projects-container {
@@ -17,16 +64,6 @@
 #projects-content {
     margin-left: 15%;
     margin-right: 15%;
-}
-
-#projects-title {
-    font-family: Arial;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 14px;
-    padding-bottom: 1.5rem;
-    padding-top: 2.5rem;
-    text-align: center;
 }
 
 .card-deck {
