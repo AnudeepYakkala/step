@@ -120,6 +120,10 @@
     width: auto;
 }
 
+.carousel-caption {
+    text-shadow: white 0px 0px 10px;
+}
+
 /* favorite places end */
 
 /* projects start */
