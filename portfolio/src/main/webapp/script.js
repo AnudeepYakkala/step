@@ -57,18 +57,6 @@ function contactEmail() {
         'email': $('input[name=email]').val(),
         'message': $('textarea[name=message]').val()
     };
-    console.log(formData);
-
     const subject = formData.name + " - " + formData.email;
-
-    //Send an email containg the name and email in the subject line and the message in the body.
-    Email.send({
-    Host : "smtp.gmail.com",
-    Username : "betterbnbcontact@gmail.com",
-    Password : "betterBNB1234",
-    To : "betterbnbcontact@gmail.com",
-    From : "betterbnbcontact@gmail.com,",
-    Subject : subject,
-    Body : formData.message
-    });
+    console.log("Sending email now!");
 }
