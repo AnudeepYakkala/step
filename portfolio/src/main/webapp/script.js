@@ -53,9 +53,8 @@ function addRandomQuote() {  // eslint-disable-line no-unused-vars
   const textWrapper = document.querySelector('.ml2');
   textWrapper.innerHTML = textWrapper.textContent.replace(
       /\S/g, '<span class=\'letter\'>$&</span>');
-
+  /* eslint-disable no-undef */
   anime.timeline({loop: false}).add({
-    // eslint-disable-line no-undef
     targets: '.ml2 .letter',
     scale: [4, 1],
     opacity: [0, 1],
@@ -66,16 +65,26 @@ function addRandomQuote() {  // eslint-disable-line no-unused-vars
   });
 }
 
+
+/* eslint-disable no-unused-vars */
+
 /**
- * Sends an email when someone fills out the contact me page. 
+ * Sends an email when someone fills out the contact me page.
  */
-function contactEmail() {
-    // Obtain name, email, and message from the contact page.
-    const formData = {
-        'name': $('input[name=name]').val(),
-        'email': $('input[name=email]').val(),
-        'message': $('textarea[name=message]').val()
-    };
-    const subject = formData.name + " - " + formData.email;
-    console.log("Sending email now!");
+function contactEmail() {  // eslint-disable-line no-unused-vars
+  // Obtain name, email, and message from the contact page.
+  const formData = {
+    'name': $('input[name=name]').val(),
+    'email': $('input[name=email]').val(),
+    'message': $('textarea[name=message]').val(),
+  };
+  console.log('Sending email now!');
+  window.location.href = 'index.html';
+}
+
+/* eslint-enable no-undef */
+/* eslint-enable no-unused-vars */
+
+function cancelRedirect() {  // eslint-disable-line no-unused-vars
+  window.location.href = 'index.html';
 }
