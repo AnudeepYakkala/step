@@ -89,8 +89,8 @@ function cancelRedirect() {  // eslint-disable-line no-unused-vars
   window.location.href = 'index.html';
 }
 
-function getMessage() {
-    fetch('/data').then(response => response.text()).then((message) => {
-        document.getElementById('message-container').innerText = message;
-    })
+function getMessage() {  // eslint-disable-line no-unused-vars
+  fetch('/data').then((response) => response.text()).then((message) => {
+    document.getElementById('message-container').innerText = message;
+  });
 }
