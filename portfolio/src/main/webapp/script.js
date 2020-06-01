@@ -88,3 +88,9 @@ function contactEmail() {  // eslint-disable-line no-unused-vars
 function cancelRedirect() {  // eslint-disable-line no-unused-vars
   window.location.href = 'index.html';
 }
+
+function getMessage() {
+    fetch('/data').then(response => response.text()).then((message) => {
+        document.getElementById('message-container').innerText = message;
+    })
+}
