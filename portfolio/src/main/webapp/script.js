@@ -65,3 +65,17 @@ function addRandomQuote() {  // eslint-disable-line no-unused-vars
     delay: (el, i) => 70 * i,
   });
 }
+
+/**
+ * Sends an email when someone fills out the contact me page. 
+ */
+function contactEmail() {
+    // Obtain name, email, and message from the contact page.
+    const formData = {
+        'name': $('input[name=name]').val(),
+        'email': $('input[name=email]').val(),
+        'message': $('textarea[name=message]').val()
+    };
+    const subject = formData.name + " - " + formData.email;
+    console.log("Sending email now!");
+}
