@@ -15,7 +15,7 @@
 /**
  * Adds a random quote to the page.
  */
-function addRandomQuote() {
+function addRandomQuote() { // eslint-disable-line no-unused-vars
   const quotes = [
     'You can\'t stop change, any more than you can stop the suns from setting' +
         '. –Shmi Skywalker',
@@ -54,7 +54,7 @@ function addRandomQuote() {
   textWrapper.innerHTML = textWrapper.textContent.replace(
       /\S/g, '<span class=\'letter\'>$&</span>');
 
-  anime.timeline({loop: false}).add({
+  anime.timeline({loop: false}).add({ // eslint-disable-line no-undef
     targets: '.ml2 .letter',
     scale: [4, 1],
     opacity: [0, 1],
@@ -64,3 +64,4 @@ function addRandomQuote() {
     delay: (el, i) => 70 * i,
   });
 }
+
