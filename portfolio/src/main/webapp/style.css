@@ -1,26 +1,26 @@
 .section-title {
-    font-family: Arial;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 14px;
-    padding-bottom: 1.5rem;
-    padding-top: 2.5rem;
-    text-align: center;
+  font-family: Arial;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 14px;
+  padding-bottom: 1.5rem;
+  padding-top: 2.5rem;
+  text-align: center;
 }
 
 /* header start */
 
 #name-text {
-    color: #7d7878;
-    font-family: Arial;
-    font-size: 16px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: 100;
-    line-height: 14px;
-    margin-bottom: 40px;
-    margin-top: 40px;
-    text-align: center;
+  color: #7d7878;
+  font-family: Arial;
+  font-size: 16px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 100;
+  line-height: 14px;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  text-align: center;
 }
 
 /* header end */
@@ -28,27 +28,27 @@
 /* quote start */
 
 #quote-background {
-    background-color: #bb8f9d;
+  background-color: #bb8f9d;
 }
 
 #quote-content {
-    margin-left: 10%;
-    margin-right: 10%;
-    text-align: center;
+  margin-left: 10%;
+  margin-right: 10%;
+  text-align: center;
 }
 
 #quote-container {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .ml2 {
-    color: #fff;
-    font-size: 3.5em;
-    font-weight: 900;
+  color: #fff;
+  font-size: 3.5em;
+  font-weight: 900;
 }
 
 .ml2 .letter {
-    line-height: 1em;
+  line-height: 1em;
 }
 
 /* quote end */
@@ -56,47 +56,47 @@
 /* about me start */
 
 #about-me-container {
-    background-color:#537483;
-    padding-bottom: 2.5rem;
+  background-color: #537483;
+  padding-bottom: 2.5rem;
 }
 
 #about-me-content {
-    background-color: #fff;
-    border-radius: 12px;
-    margin-left: 15%;
-    margin-right: 15%;
+  background-color: #fff;
+  border-radius: 12px;
+  margin-left: 15%;
+  margin-right: 15%;
 }
 
 .about-me-column {
-    margin-bottom: 10%;
-    margin-left: 15%;
-    margin-right: 15%;
-    margin-top: 10%;
-    text-align: center;
+  margin-bottom: 10%;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-top: 10%;
+  text-align: center;
 }
 
 .column-title {
-    font-family: sans-serif;
-    font-size: 22px;
-    font-weight: bold;
-    padding-top: 1rem;
+  font-family: sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  padding-top: 1rem;
 }
 
 .column-description {
-    font-family: sans-serif;
-    font-size: 16px;
-    font-weight: 200;
-    line-height: 2;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: 200;
+  line-height: 2;
 }
 
 .column-divider {
-    border-right-color: #ccc;
-    border-right-style: solid;
-    border-right-width: thin;
+  border-right-color: #ccc;
+  border-right-style: solid;
+  border-right-width: thin;
 }
 
 .column-subheader {
-    color: #375592;
+  color: #375592;
 }
 
 /* about me end */
@@ -104,19 +104,19 @@
 /* favorite places start */
 
 #favorite-places-container {
-    background-color: #d58266;
-    padding-bottom: 2rem;
+  background-color: #d58266;
+  padding-bottom: 2rem;
 }
 
 #favorite-places-content {
-    margin-left: 10%;
-    margin-right: 10%;
-    text-align: center;
+  margin-left: 10%;
+  margin-right: 10%;
+  text-align: center;
 }
 
 .carousel-image {
-    height: 50vh;
-    width: auto;
+  height: 50vh;
+  width: auto;
 }
 
 .carousel-caption {
@@ -128,17 +128,17 @@
 /* projects start */
 
 #projects-container {
-    background-color: #ebebeb;
-    padding-bottom: 1.5rem;
+  background-color: #ebebeb;
+  padding-bottom: 1.5rem;
 }
 
 #projects-content {
-    margin-left: 15%;
-    margin-right: 15%;
+  margin-left: 15%;
+  margin-right: 15%;
 }
 
 .card-deck {
-    margin-top: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 /* projects end */
@@ -146,19 +146,19 @@
 /* footer start */
 
 #footer-container {
-    background-color: #171e28;
-    padding-bottom: 2rem;
-    padding-top: 2rem;
-    text-align: center;
+  background-color: #171e28;
+  padding-bottom: 2rem;
+  padding-top: 2rem;
+  text-align: center;
 }
 
 .logo-image {
-    height: 30px;
-    width: auto;
+  height: 30px;
+  width: auto;
 }
 
 a:hover {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 /* footer end */

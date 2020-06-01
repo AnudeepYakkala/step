@@ -15,7 +15,7 @@
 /**
  * Adds a random quote to the page.
  */
-function addRandomQuote() {
+function addRandomQuote() {  // eslint-disable-line no-unused-vars
   const quotes = [
     'You can\'t stop change, any more than you can stop the suns from setting' +
         '. –Shmi Skywalker',
@@ -32,10 +32,10 @@ function addRandomQuote() {
     'I can\'t change the direction of the wind but I can adjust my sails ' +
         'to always reach my destination. –Jimmy Dean',
     'A champion is defined ' +
-        'not by their wins but by how they can recover when they fall. –Serena ' +
-        'Williams',
-    'Motivation comes from working on things we care about. ' +
-        '–Sheryl Sandberg',
+        'not by their wins but by how they can recover when they fall.' +
+        ' –Serena Williams',
+    'Motivation comes from working on things we care abo' +
+        'ut. –Sheryl Sandberg',
     'Help me, Obi-Wan Kenobi. You are my only hope. ' +
         '–Lelia Organa',
     'The force will be with you. Always. –Obi Wan Kenobi',
@@ -50,19 +50,20 @@ function addRandomQuote() {
   quoteContainer.innerText = quote;
 
   // Source: https://tobiasahlin.com/moving-letters
-  var textWrapper = document.querySelector('.ml2');
-  textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+  const textWrapper = document.querySelector('.ml2');
+  textWrapper.innerHTML = textWrapper.textContent.replace(
+      /\S/g, '<span class=\'letter\'>$&</span>');
 
-  anime.timeline({loop: false})
-    .add({
-      targets: '.ml2 .letter',
-      scale: [4,1],
-      opacity: [0,1],
-      translateZ: 0,
-      easing: "easeOutExpo",
-      duration: 950,
-      delay: (el, i) => 70*i
-    })
+  anime.timeline({loop: false}).add({
+    // eslint-disable-line no-undef
+    targets: '.ml2 .letter',
+    scale: [4, 1],
+    opacity: [0, 1],
+    translateZ: 0,
+    easing: 'easeOutExpo',
+    duration: 950,
+    delay: (el, i) => 70 * i,
+  });
 }
 
 /**
