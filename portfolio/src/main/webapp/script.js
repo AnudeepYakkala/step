@@ -90,7 +90,18 @@ function cancelRedirect() {  // eslint-disable-line no-unused-vars
 }
 
 function getMessage() {  // eslint-disable-line no-unused-vars
-  fetch('/data').then((response) => response.text()).then((message) => {
-    document.getElementById('message-container').innerText = message;
+  fetch('/data').then((response) => response.json()).then((messages) => {
+    const commentsElement = document.getElementById('comments-content');
+    commentsElement.innerHTML = '';
+    messages.forEach((message) => {
+      commentsElement.appendChild(createListElement(message));
+    });
   });
+}
+
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.className = 'list-group-item';
+  liElement.innerText = text;
+  return liElement;
 }

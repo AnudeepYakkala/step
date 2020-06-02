@@ -191,3 +191,13 @@ a:hover {
 }
 
 /* contact form end */
+
+/* comments start */
+
+#comments-container {
+  background-color: #375592;
+  padding-bottom: 2rem;
+  text-align: center;
+}
+
+/* comments end */
