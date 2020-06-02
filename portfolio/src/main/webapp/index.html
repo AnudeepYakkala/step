@@ -282,8 +282,14 @@
     </div>
 
     <div id="comments-container">
-      <p class="section-title">COMMENTS</p>
-      <ul id="comments-content" class="list-group"></ul>
+      <div id="comments-content">
+        <p class="section-title">COMMENTS</p>
+        <form id="comment-form" action="/data" method="post">
+          <textarea type="text" name="text-input" rows="6" class="form-control md-textarea"></textarea>
+          <button id="comment-button" type="submit" class="btn btn-secondary btn-sm">Comment</button>
+        </form>
+        <ul id="comments" class="list-group"></ul>
+      </div>
     </div>
 
     <!-- Footer -->
