@@ -25,8 +25,11 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private ArrayList<String> messages = new ArrayList<>(Arrays.asList("Hello", "Bonjur", "Hola"));
+  private ArrayList<String> messages = new ArrayList<>();
 
+  /**
+   * Write to /data the messages ArrayList as a json string
+   */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String json = convertToJson(messages);
@@ -35,9 +38,39 @@ public class DataServlet extends HttpServlet {
     response.getWriter().println(json);
   }
 
+  /**
+   * Obtain the input from the comment form and add it to the messages ArrayList
+   */
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Get the comment input from the form.
+    String comment = getParameter(request, "text-input", "");
+    messages.add(comment);
+
+    // Respond with the result.
+    response.setContentType("text/html;");
+    response.getWriter().println(convertToJson(messages));
+    response.sendRedirect("index.html#comments-container");
+  }
+
+  /**
+   * @return the ArrayList paramater converted to a json format
+   */
   public String convertToJson(ArrayList<String> messages) {
     Gson gson = new Gson();
     String json = gson.toJson(messages);
     return json;
+  }
+
+  /**
+   * @return the request parameter, or the default value if the parameter
+   *         was not specified by the client
+   */
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
   }
 }
