@@ -91,7 +91,7 @@ function cancelRedirect() {  // eslint-disable-line no-unused-vars
 
 /**
  * Obtains the stored comments and adds them to the comment
- * section on the home page. 
+ * section on the home page.
  */
 function getMessage() {  // eslint-disable-line no-unused-vars
   fetch('/data').then((response) => response.json()).then((messages) => {
