@@ -89,9 +89,13 @@ function cancelRedirect() {  // eslint-disable-line no-unused-vars
   window.location.href = 'index.html';
 }
 
+/**
+ * Obtains the stored comments and adds them to the comment
+ * section on the home page.
+ */
 function getMessage() {  // eslint-disable-line no-unused-vars
   fetch('/data').then((response) => response.json()).then((messages) => {
-    const commentsElement = document.getElementById('comments-content');
+    const commentsElement = document.getElementById('comments');
     commentsElement.innerHTML = '';
     messages.forEach((message) => {
       commentsElement.appendChild(createListElement(message));
