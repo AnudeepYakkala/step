@@ -42,11 +42,22 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
+    int maxComments = 20;
+
+    if (request.getParameter("max-comments") != null) {
+      maxComments = Integer.parseInt(request.getParameter("max-comments"));
+    }
+
     // Add the comments obtained from Datastore to the comments Arraylist
     ArrayList<String> comments = new ArrayList<>();
+    int counter = 0;
     for (Entity entity : results.asIterable()) {
       String comment = (String) entity.getProperty("text");
       comments.add(comment);
+      counter++;
+      if (counter == maxComments) {
+        break;
+      }
     }
 
     Gson gson = new Gson();
