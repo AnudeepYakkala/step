@@ -108,3 +108,23 @@ public class DataServlet extends HttpServlet {
     return value;
   }
 }
+
+@WebServlet("/delete-data")
+public class DataServlet extends HttpServlet {
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Get comments data from Datastore
+    Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+    // Delete all the comments in DataStore
+    for (Entity entity : results.asIterable()) {
+      datastore.delete(entity.getKey());
+    }
+
+    // Convert comments to json format and return them
+    response.setContentType("text/html;");
+    response.getWriter().println();
+  }
+}
