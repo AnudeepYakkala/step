@@ -105,6 +105,16 @@ function getComments() {  // eslint-disable-line no-unused-vars
       });
 }
 
+/**
+ * Delete all the comments stored server-side and update the home page
+ * to reflect these changes.
+ */
+function deleteComments() {  // eslint-disable-line no-unused-vars
+  fetch('/delete-comments', {method: 'POST'}).then(() => {
+    getComments();
+  });
+}
+
 /* eslint-enable no-undef */
 
 function createListElement(text) {
