@@ -82,7 +82,6 @@ function contactEmail() {  // eslint-disable-line no-unused-vars
   window.location.href = 'index.html';
 }
 
-/* eslint-enable no-undef */
 /* eslint-enable no-unused-vars */
 
 function cancelRedirect() {  // eslint-disable-line no-unused-vars
@@ -94,7 +93,7 @@ function cancelRedirect() {  // eslint-disable-line no-unused-vars
  * section on the home page.
  */
 function getComments() {  // eslint-disable-line no-unused-vars
-  const numComments = $("#num-comments-selector :selected").val();
+  const numComments = $('#num-comments-selector :selected').val();
   fetch('/data?max-comments=' + numComments)
       .then((response) => response.json())
       .then((messages) => {
@@ -105,6 +104,8 @@ function getComments() {  // eslint-disable-line no-unused-vars
         });
       });
 }
+
+/* eslint-enable no-undef */
 
 function createListElement(text) {
   const liElement = document.createElement('li');
