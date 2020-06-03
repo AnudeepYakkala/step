@@ -33,7 +33,6 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String json = convertToJson(messages);
-
     response.setContentType("text/html;");
     response.getWriter().println(json);
   }
@@ -44,7 +43,7 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the comment input from the form.
-    String comment = getParameter(request, "text-input", "");
+    String comment = getParameter(request, "text-input", /* default value= */ "");
     messages.add(comment);
 
     // Respond with the result.
