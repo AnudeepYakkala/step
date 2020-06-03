@@ -93,8 +93,9 @@ function cancelRedirect() {  // eslint-disable-line no-unused-vars
  * Obtains the stored comments and adds them to the comment
  * section on the home page.
  */
-function getMessage() {  // eslint-disable-line no-unused-vars
-  fetch('/data?max-comments=10')
+function getComments() {  // eslint-disable-line no-unused-vars
+  const numComments = $("#num-comments-selector :selected").val();
+  fetch('/data?max-comments=' + numComments)
       .then((response) => response.json())
       .then((messages) => {
         const commentsElement = document.getElementById('comments');

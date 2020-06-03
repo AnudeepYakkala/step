@@ -213,4 +213,16 @@ a:hover {
   margin-top: 10px;
 }
 
+#num-comments-container {
+  text-align: right;
+}
+
+#num-comments-selector {
+  background-color: #6c757d;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+}
+
 /* comments end */
