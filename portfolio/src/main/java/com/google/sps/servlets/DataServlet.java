@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,34 +29,36 @@ public class DataServlet extends HttpServlet {
   private ArrayList<String> messages = new ArrayList<>();
 
   /**
-   * Write to /data the messages ArrayList as a json string
+   * Write to /data the messages ArrayList as a json string.
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String json = convertToJson(messages);
+    String json = convertMessageToJson(messages);
     response.setContentType("text/html;");
     response.getWriter().println(json);
   }
 
   /**
-   * Obtain the input from the comment form and add it to the messages ArrayList
+   * Obtain the input from the comment form and add it to the messages ArrayList.
    */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the comment input from the form.
-    String comment = getParameter(request, "text-input", /* default value= */ "");
-    messages.add(comment);
+    Optional<String> comment = getParameter(request, "text-input");
+    if (comment.isPresent()) {
+      messages.add(comment.get());
+    }
 
     // Respond with the result.
     response.setContentType("text/html;");
-    response.getWriter().println(convertToJson(messages));
+    response.getWriter().println(convertMessageToJson(messages));
     response.sendRedirect("index.html#comments-container");
   }
 
   /**
-   * @return the ArrayList paramater converted to a json format
+   * @return the ArrayList paramater converted to a json format.
    */
-  public String convertToJson(ArrayList<String> messages) {
+  public String convertMessageToJson(ArrayList<String> messages) {
     Gson gson = new Gson();
     String json = gson.toJson(messages);
     return json;
@@ -63,13 +66,13 @@ public class DataServlet extends HttpServlet {
 
   /**
    * @return the request parameter, or the default value if the parameter
-   *         was not specified by the client
+   *         was not specified by the client.
    */
-  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
-    String value = request.getParameter(name);
+  private Optional<String> getParameter(HttpServletRequest request, String param) {
+    String value = request.getParameter(param);
     if (value == null) {
-      return defaultValue;
+      return Optional.empty();
     }
-    return value;
+    return Optional.ofNullable(value);
   }
 }
