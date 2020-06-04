@@ -46,7 +46,7 @@ public class DataServlet extends HttpServlet {
     // Get the comment input from the form.
     Optional comment = getParameter(request, "text-input");
     if (comment.isPresent()) {
-      messages.add((String)comment.get());
+      messages.add((String) comment.get());
     }
 
     // Respond with the result.
