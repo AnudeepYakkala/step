@@ -11,21 +11,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+  * Get comments data from Datastore. Delete all of the comments obtained
+  * from Datastore. Then, return an empty reponse. 
+  */
 @WebServlet("/delete-comments")
 public class DeleteServerlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Get comments data from Datastore
     Query query = new Query("Comment");
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    // Delete all the comments in DataStore
     for (Entity entity : results.asIterable()) {
       datastore.delete(entity.getKey());
     }
 
-    // Return an empty response
     response.setContentType("text/html;");
     response.getWriter().println();
   }
