@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -43,12 +44,12 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the comment input from the form.
-    String comment = getParameter(request, "text-input", /* default value= */ "");
+    String comment = getParameter(request, "text-input").orElse("");
     messages.add(comment);
 
     // Respond with the result.
     response.setContentType("text/html;");
-    response.getWriter().println(convertToJson(messages));
+    response.getWriter().println(convertMessageToJson(messages));
     response.sendRedirect("index.html#comments-container");
   }
 
@@ -65,11 +66,11 @@ public class DataServlet extends HttpServlet {
    * @return the request parameter, or the default value if the parameter
    *         was not specified by the client.
    */
-  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
-    String value = request.getParameter(name);
+  private Optional<String> getParameter(HttpServletRequest request, String param) {
+    String value = request.getParameter(param);
     if (value == null) {
-      return defaultValue;
+      return Optional.empty();
     }
-    return value;
+    return Optional.of(value);
   }
 }
