@@ -35,7 +35,7 @@ public class DataServlet extends HttpServlet {
   private static final String COMMENT_VALUE = "text";
   private static final String COMMENT_TIMESTAMP = "timestamp";
   private static final String CONTENT_TYPE = "text/html;";
-  private static final int DEFAULT_MAX_COMMENTS = 20;
+  private static final String DEFAULT_MAX_COMMENTS = "20";
 
   /**
    * Get comments from Datastore and add them to an ArrayList. Convert
@@ -46,11 +46,7 @@ public class DataServlet extends HttpServlet {
     Query query = new Query(COMMENT_KIND).addSort(COMMENT_TIMESTAMP, SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-    int maxComments = DEFAULT_MAX_COMMENTS;
-
-    if (request.getParameter("max-comments") != null) {
-      maxComments = Integer.parseInt(request.getParameter("max-comments"));
-    }
+    int maxComments = Integer.parseInt(getParameter(request, "max-comments").orElse(DEFAULT_MAX_COMMENTS));
 
     ArrayList<String> comments = new ArrayList<>();
     int counter = 0;
