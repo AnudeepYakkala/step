@@ -109,3 +109,11 @@ function createListElement(text) {
   liElement.innerText = text;
   return liElement;
 }
+
+function updateButton() {  // eslint-disable-line no-unused-vars
+  if (document.getElementById('comment-input').value === '') {
+    document.getElementById('comment-button').disabled = true;
+  } else {
+    document.getElementById('comment-button').disabled = false;
+  }
+}

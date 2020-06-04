@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   /**
-   * Write to /data the messages ArrayList as a json string
+   * Write to /data the messages ArrayList as a json string.
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -42,7 +43,7 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    // Add the comments obtained from Datastore to the comments Arraylist
+    // Add the comments obtained from Datastore to the comments Arraylist.
     ArrayList<String> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
       String comment = (String) entity.getProperty("text");
@@ -51,36 +52,37 @@ public class DataServlet extends HttpServlet {
 
     Gson gson = new Gson();
 
-    // Convert comments to json format and return them
+    // Convert comments to json format and return them.
     response.setContentType("text/html;");
     response.getWriter().println(gson.toJson(comments));
   }
 
   /**
-   * Obtain the input from the comment form and add it to the messages ArrayList
+   * Obtain the input from the comment form and add it to the messages ArrayList.
    */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the comment input from the form.
-    String comment = getParameter(request, "text-input", "");
+    Optional<String> comment = getParameter(request, "text-input");
+    if (comment.isPresent()) {
+      // Create entity with comment information
+      Entity commentEntity = new Entity("Comment");
+      commentEntity.setProperty("text", comment);
+      commentEntity.setProperty("timestamp", System.currentTimeMillis());
 
-    // Create entity with comment information
-    Entity commentEntity = new Entity("Comment");
-    commentEntity.setProperty("text", comment);
-    commentEntity.setProperty("timestamp", System.currentTimeMillis());
+      // Store comment in Datastore
+      DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+      datastore.put(commentEntity);
+    }
 
-    // Store comment in Datastore
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(commentEntity);
-
-    // Redirect back to comments section of the home page
+    // Redirect back to comments section of the home page.
     response.sendRedirect("index.html#comments-container");
   }
 
   /**
-   * @return the ArrayList paramater converted to a json format
+   * @return the ArrayList paramater converted to a json format.
    */
-  public String convertToJson(ArrayList<String> messages) {
+  public String convertMessageToJson(ArrayList<String> messages) {
     Gson gson = new Gson();
     String json = gson.toJson(messages);
     return json;
@@ -88,13 +90,10 @@ public class DataServlet extends HttpServlet {
 
   /**
    * @return the request parameter, or the default value if the parameter
-   *         was not specified by the client
+   *         was not specified by the client.
    */
-  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
-    String value = request.getParameter(name);
-    if (value == null) {
-      return defaultValue;
-    }
-    return value;
+  private Optional<String> getParameter(HttpServletRequest request, String param) {
+    String value = request.getParameter(param);
+    return Optional.ofNullable(value);
   }
 }
