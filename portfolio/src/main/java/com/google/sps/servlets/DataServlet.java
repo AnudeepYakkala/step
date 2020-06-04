@@ -46,7 +46,8 @@ public class DataServlet extends HttpServlet {
     Query query = new Query(COMMENT_KIND).addSort(COMMENT_TIMESTAMP, SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-    int maxComments = Integer.parseInt(getParameter(request, "max-comments").orElse(DEFAULT_MAX_COMMENTS));
+    int maxComments =
+        Integer.parseInt(getParameter(request, "max-comments").orElse(DEFAULT_MAX_COMMENTS));
 
     ArrayList<String> comments = new ArrayList<>();
     int counter = 0;
