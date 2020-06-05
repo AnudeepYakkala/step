@@ -82,7 +82,6 @@ function contactEmail() {  // eslint-disable-line no-unused-vars
   window.location.href = 'index.html';
 }
 
-/* eslint-enable no-undef */
 /* eslint-enable no-unused-vars */
 
 function cancelRedirect() {  // eslint-disable-line no-unused-vars
@@ -93,15 +92,20 @@ function cancelRedirect() {  // eslint-disable-line no-unused-vars
  * Obtains the stored comments and adds them to the comment
  * section on the home page.
  */
-function getMessage() {  // eslint-disable-line no-unused-vars
-  fetch('/data').then((response) => response.json()).then((messages) => {
-    const commentsElement = document.getElementById('comments');
-    commentsElement.innerHTML = '';
-    messages.forEach((message) => {
-      commentsElement.appendChild(createListElement(message));
-    });
-  });
+function getComments() {  // eslint-disable-line no-unused-vars
+  const numComments = $('#num-comments-selector :selected').val();
+  fetch('/data?max-comments=' + numComments)
+      .then((response) => response.json())
+      .then((messages) => {
+        const commentsElement = document.getElementById('comments');
+        commentsElement.innerHTML = '';
+        messages.forEach((message) => {
+          commentsElement.appendChild(createListElement(message));
+        });
+      });
 }
+
+/* eslint-enable no-undef */
 
 function createListElement(text) {
   const liElement = document.createElement('li');

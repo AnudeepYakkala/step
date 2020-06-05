@@ -20,46 +20,44 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.common.collect.Iterables;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Optional;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   private static final String COMMENT_KIND = "Comment";
   private static final String COMMENT_VALUE = "text";
   private static final String COMMENT_TIMESTAMP = "timestamp";
   private static final String CONTENT_TYPE = "text/html;";
+  private static final String DEFAULT_MAX_COMMENTS = "20";
 
   /**
-   * Write to /data the messages ArrayList as a json string.
+   * Get comments from Datastore and add them to an ArrayList. Convert
+   * the ararylist to a json format and return it.
    */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Get comments data from Datastore
     Query query = new Query(COMMENT_KIND).addSort(COMMENT_TIMESTAMP, SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
+    int maxComments =
+        Integer.parseInt(getParameter(request, "max-comments").orElse(DEFAULT_MAX_COMMENTS));
 
-    // Add the comments obtained from Datastore to the comments Arraylist.
     ArrayList<String> comments = new ArrayList<>();
-    for (Entity entity : results.asIterable()) {
+    for (Entity entity : Iterables.limit(results.asIterable(), maxComments)) {
       String comment = (String) entity.getProperty(COMMENT_VALUE);
       comments.add(comment);
     }
 
-    Gson gson = new Gson();
-
-    // Convert comments to json format and return them.
     response.setContentType(CONTENT_TYPE);
-    response.getWriter().println(gson.toJson(comments));
+    response.getWriter().println(convertMessageToJson(comments));
   }
 
   /**
