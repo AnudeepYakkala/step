@@ -17,9 +17,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/delete-comments")
 public class DeleteServerlet extends HttpServlet {
+  private static final String COMMENT_KIND = "Comment";
+
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Comment");
+    Query query = new Query(COMMENT_KIND);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
