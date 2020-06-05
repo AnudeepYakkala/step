@@ -20,6 +20,7 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.common.collect.Iterables;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,14 +51,9 @@ public class DataServlet extends HttpServlet {
         Integer.parseInt(getParameter(request, "max-comments").orElse(DEFAULT_MAX_COMMENTS));
 
     ArrayList<String> comments = new ArrayList<>();
-    int counter = 0;
-    for (Entity entity : results.asIterable()) {
+    for (Entity entity : Iterables.limit(results.asIterable(), maxComments)) {
       String comment = (String) entity.getProperty(COMMENT_VALUE);
       comments.add(comment);
-      counter++;
-      if (counter == maxComments) {
-        break;
-      }
     }
 
     response.setContentType(CONTENT_TYPE);
