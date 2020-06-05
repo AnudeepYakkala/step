@@ -110,9 +110,7 @@ function getComments() {  // eslint-disable-line no-unused-vars
  * to reflect these changes.
  */
 function deleteComments() {  // eslint-disable-line no-unused-vars
-  fetch('/delete-comments', {method: 'POST'}).then(() => {
-    getComments();
-  });
+  fetch('/delete-comments', {method: 'POST'}).then(() => void getComments());
 }
 
 /* eslint-enable no-undef */
