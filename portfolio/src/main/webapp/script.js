@@ -123,3 +123,13 @@ function createListElement(text) {
   liElement.innerText = text;
   return liElement;
 }
+
+function updateContactButton() {  // eslint-disable-line no-unused-vars
+  if (document.getElementById('name').value === '' ||
+      document.getElementById('message').value === '' ||
+      document.getElementById('email').value === '') {
+    document.getElementById('contact-submit').disabled = true;
+  } else {
+    document.getElementById('contact-submit').disabled = false;
+  }
+}
