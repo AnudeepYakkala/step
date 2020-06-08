@@ -11,8 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
   private static final String CONTENT_TYPE = "text/html;";
-  private static final String LOGIN_REDIRECT = "/"
+  private static final String LOGIN_REDIRECT = "/";
 
+  /**
+  * Check if a user is logged in. If the user is logged in
+  * return "Loggin in". Otherwise, return a login link. 
+  */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType(CONTENT_TYPE);
@@ -26,3 +30,4 @@ public class LoginServlet extends HttpServlet {
     }
   }
 }
+

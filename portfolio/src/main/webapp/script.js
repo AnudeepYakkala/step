@@ -161,5 +161,5 @@ function checkLoginStatus() {  // eslint-disable-line no-unused-vars
       document.getElementById('login').style.display = 'inline';
       document.getElementById('login').href = message;
     }
-  })
+  });
 }
