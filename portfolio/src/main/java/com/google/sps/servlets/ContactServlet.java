@@ -45,7 +45,6 @@ public class ContactServlet extends HttpServlet {
    *         was not specified by the client.
    */
   private Optional<String> getParameter(HttpServletRequest request, String param) {
-    String value = request.getParameter(param);
-    return Optional.ofNullable(value);
+    return Optional.ofNullable(request.getParameter(param));
   }
 }
