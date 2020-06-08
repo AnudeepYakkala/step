@@ -99,14 +99,14 @@ function getComments() {  // eslint-disable-line no-unused-vars
   fetch('/data?max-comments=' + numComments)
       .then((response) => response.json())
       .then((messages) => {
-        if (messages.length == 0) {
+        if (messages.length === 0) {
           document.getElementById('num-comments-selector').style.display =
               'none';
           document.getElementById('clear-button').style.display = 'none';
         } else {
           document.getElementById('num-comments-selector').style.display =
-              'initial';
-          document.getElementById('clear-button').style.display = 'initial';
+              'inline';
+          document.getElementById('clear-button').style.display = 'inline';
         }
 
         const commentsElement = document.getElementById('comments');
