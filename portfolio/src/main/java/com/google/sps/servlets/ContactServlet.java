@@ -11,22 +11,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/contact")
-public class ContactServerlet extends HttpServlet {
+public class ContactServlet extends HttpServlet {
+  private static final String NAME_VALUE = "name";
+  private static final String MESSAGE_VALUE = "message";
+  private static final String EMAIL_VALUE = "email";
+  private static final String CONTACT_TIMESTAMP = "timestamp";
+  private static final String CONTACT_KIND = "Contact;"
+
   /**
    * Obtain the information from the contact form and store
    * it in Datastore. Then, redirect back to the homepage.
    */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String message = getParameter(request, "message").get();
-    String name = getParameter(request, "name").get();
-    String email = getParameter(request, "email").get();
+    String message = getParameter(request, MESSAGE_VALUE).get();
+    String name = getParameter(request, NAME_VALUE).get();
+    String email = getParameter(request, EMAIL_VALUE).get();
 
-    Entity contactEntity = new Entity("Contact");
-    contactEntity.setProperty("name", name);
-    contactEntity.setProperty("email", email);
-    contactEntity.setProperty("message", message);
-    contactEntity.setProperty("timestamp", System.currentTimeMillis());
+    Entity contactEntity = new Entity(CONTACT_KIND);
+    contactEntity.setProperty(NAME_VALUE, name);
+    contactEntity.setProperty(EMAIL_VALUE, email);
+    contactEntity.setProperty(MESSAGE_VALUE, message);
+    contactEntity.setProperty(CONTACT_TIMESTAMP, System.currentTimeMillis());
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(contactEntity);
