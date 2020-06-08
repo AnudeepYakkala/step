@@ -14,9 +14,9 @@ public class LoginServlet extends HttpServlet {
   private static final String LOGIN_REDIRECT = "/";
 
   /**
-  * Check if a user is logged in. If the user is logged in
-  * return "Loggin in". Otherwise, return a login link. 
-  */
+   * Check if a user is logged in. If the user is logged in
+   * return "Loggin in". Otherwise, return a login link.
+   */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType(CONTENT_TYPE);
@@ -25,9 +25,7 @@ public class LoginServlet extends HttpServlet {
     if (userService.isUserLoggedIn()) {
       response.getWriter().println("Logged In");
     } else {
-      String loginUrl = userService.createLoginURL(LOGIN_REDIRECT);
-      response.getWriter().println(loginUrl);
+      response.getWriter().println(userService.createLoginURL(LOGIN_REDIRECT));
     }
   }
 }
-
