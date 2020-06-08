@@ -90,13 +90,25 @@ function cancelRedirect() {  // eslint-disable-line no-unused-vars
 
 /**
  * Obtains the stored comments and adds them to the comment
- * section on the home page.
+ * section on the home page. Removes the clear button and the
+ * option to selected number of comments displayed if there are
+ * no comments.
  */
 function getComments() {  // eslint-disable-line no-unused-vars
   const numComments = $('#num-comments-selector :selected').val();
   fetch('/data?max-comments=' + numComments)
       .then((response) => response.json())
       .then((messages) => {
+        if (messages.length == 0) {
+          document.getElementById('num-comments-selector').style.display =
+              'none';
+          document.getElementById('clear-button').style.display = 'none';
+        } else {
+          document.getElementById('num-comments-selector').style.display =
+              'initial';
+          document.getElementById('clear-button').style.display = 'initial';
+        }
+
         const commentsElement = document.getElementById('comments');
         commentsElement.innerHTML = '';
         messages.forEach((message) => {
