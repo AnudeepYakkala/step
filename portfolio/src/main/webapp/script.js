@@ -105,6 +105,14 @@ function getComments() {  // eslint-disable-line no-unused-vars
       });
 }
 
+/**
+ * Delete all the comments stored server-side and update the home page
+ * to reflect these changes.
+ */
+function deleteComments() {  // eslint-disable-line no-unused-vars
+  fetch('/delete-comments', {method: 'POST'}).then(() => void getComments());
+}
+
 /* eslint-enable no-undef */
 
 function createListElement(text) {
@@ -112,4 +120,12 @@ function createListElement(text) {
   liElement.className = 'list-group-item';
   liElement.innerText = text;
   return liElement;
+}
+
+function updateButton() {  // eslint-disable-line no-unused-vars
+  if (document.getElementById('comment-input').value === '') {
+    document.getElementById('comment-button').disabled = true;
+  } else {
+    document.getElementById('comment-button').disabled = false;
+  }
 }
