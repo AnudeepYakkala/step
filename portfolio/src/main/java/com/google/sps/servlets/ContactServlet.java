@@ -12,11 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/contact")
 public class ContactServlet extends HttpServlet {
-  private static final String NAME_VALUE = "name";
-  private static final String MESSAGE_VALUE = "message";
-  private static final String EMAIL_VALUE = "email";
-  private static final String CONTACT_TIMESTAMP = "timestamp";
   private static final String CONTACT_KIND = "Contact";
+  private static final String CONTACT_TIMESTAMP = "timestamp";
+  private static final String EMAIL_VALUE = "email";
+  private static final String MESSAGE_VALUE = "message";
+  private static final String NAME_VALUE = "name";
+  
 
   /**
    * Obtain the information from the contact form and store
