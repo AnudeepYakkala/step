@@ -123,9 +123,9 @@ function createListElement(text) {
 }
 
 function updateContactButton() {  // eslint-disable-line no-unused-vars
-  if (document.getElementById('name').value === '' ||
-      document.getElementById('message').value === '' ||
-      document.getElementById('email').value === '') {
+  if (document.getElementById('name').value.replace(/\s/g, '') === '' ||
+      document.getElementById('message').value.replace(/\s/g, '') === '' ||
+      document.getElementById('email').value.replace(/\s/g, '') === '') {
     document.getElementById('contact-submit').disabled = true;
   } else {
     document.getElementById('contact-submit').disabled = false;
