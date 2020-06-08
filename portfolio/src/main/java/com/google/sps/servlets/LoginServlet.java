@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
   private static final String CONTENT_TYPE = "text/html;";
+  private static final String LOGIN_REDIRECT = "/"
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -20,7 +21,8 @@ public class LoginServlet extends HttpServlet {
     if (userService.isUserLoggedIn()) {
       response.getWriter().println("Logged In");
     } else {
-      response.getWriter().println("Not Logged In");
+      String loginUrl = userService.createLoginURL(LOGIN_REDIRECT);
+      response.getWriter().println(loginUrl);
     }
   }
 }

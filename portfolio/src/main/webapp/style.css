@@ -213,6 +213,10 @@ a:hover {
   margin-top: 10px;
 }
 
+#login {
+  display: none;
+}
+
 #num-comments-container {
   text-align: right;
 }

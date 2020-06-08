@@ -151,3 +151,15 @@ function updateButton() {  // eslint-disable-line no-unused-vars
     document.getElementById('comment-button').disabled = false;
   }
 }
+
+function checkLoginStatus() {  // eslint-disable-line no-unused-vars
+  fetch('/login').then((response) => response.text()).then((message) => {
+    if (message === 'Logged In\n') {
+      document.getElementById('comment-form').style.display = 'inline';
+    } else {
+      document.getElementById('comment-form').style.display = 'none';
+      document.getElementById('login').style.display = 'inline';
+      document.getElementById('login').href = message;
+    }
+  })
+}
