@@ -33,9 +33,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   private static final String COMMENT_KIND = "Comment";
-  private static final String COMMENT_VALUE = "text";
   private static final String COMMENT_TIMESTAMP = "timestamp";
   private static final String CONTENT_TYPE = "text/html;";
+  private static final String COMMENT_VALUE = "text";
   private static final String DEFAULT_MAX_COMMENTS = "20";
 
   /**

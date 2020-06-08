@@ -134,6 +134,16 @@ function createListElement(text) {
   return liElement;
 }
 
+function updateContactButton() {  // eslint-disable-line no-unused-vars
+  if (document.getElementById('name').value.replace(/\s/g, '') === '' ||
+      document.getElementById('message').value.replace(/\s/g, '') === '' ||
+      document.getElementById('email').value.replace(/\s/g, '') === '') {
+    document.getElementById('contact-submit').disabled = true;
+  } else {
+    document.getElementById('contact-submit').disabled = false;
+  }
+}
+
 function updateButton() {  // eslint-disable-line no-unused-vars
   if (document.getElementById('comment-input').value === '') {
     document.getElementById('comment-button').disabled = true;

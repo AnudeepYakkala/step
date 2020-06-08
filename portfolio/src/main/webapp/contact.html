@@ -18,20 +18,20 @@
     <script src="script.js"></script>
   </head>
   <body>
-    <form id="form-container">
+    <form id="contact-form-container" action="/contact" method="post">
       <div id="title">Contact Form</div>
       <div id="message-text">Thank you for taking the time to contact me. Please fill out the form below.</div>
       <div class="row row-spacing">
         <div class="col-md-6">
           <div class="md-form mb-0">
-            <label for="name" class="">Name</label>
-            <input type="text" id="name" name="name" class="form-control" />
+            <label for="name">Name</label>
+            <input onkeyup="updateContactButton()" type="text" id="name" name="name" class="form-control" />
           </div>
         </div>
         <div class="col-md-6">
           <div class="md-form mb-0">
-            <label for="email" class="">Email</label>
-            <input type="text" id="email" name="email" class="form-control" />
+            <label for="email">Email</label>
+            <input onkeyup="updateContactButton()" type="text" id="email" name="email" class="form-control" />
           </div>
         </div>
       </div>
@@ -40,13 +40,20 @@
         <div class="col-md-12">
           <div class="md-form">
             <label for="message">Message</label>
-            <textarea type="text" id="message" name="message" rows="6" class="form-control md-textarea"></textarea>
+            <textarea
+              onkeyup="updateContactButton()"
+              type="text"
+              id="message"
+              name="message"
+              rows="6"
+              class="form-control md-textarea"
+            ></textarea>
           </div>
         </div>
       </div>
       <div id="buttons">
         <button type="button" class="btn btn-outline-primary" onclick="cancelRedirect()">Cancel</button>
-        <button type="submit" class="btn btn-outline-primary" onclick="contactEmail()">Submit</button>
+        <button id="contact-submit" type="submit" class="btn btn-outline-primary" disabled>Submit</button>
       </div>
     </form>
   </body>
