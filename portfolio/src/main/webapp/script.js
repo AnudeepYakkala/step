@@ -110,9 +110,7 @@ function getComments() {  // eslint-disable-line no-unused-vars
  * to reflect these changes.
  */
 function deleteComments() {  // eslint-disable-line no-unused-vars
-  fetch('/delete-comments', {method: 'POST'}).then(() => {
-    getComments();
-  });
+  fetch('/delete-comments', {method: 'POST'}).then(() => void getComments());
 }
 
 /* eslint-enable no-undef */
@@ -131,5 +129,13 @@ function updateContactButton() {  // eslint-disable-line no-unused-vars
     document.getElementById('contact-submit').disabled = true;
   } else {
     document.getElementById('contact-submit').disabled = false;
+  }
+}
+
+function updateButton() {  // eslint-disable-line no-unused-vars
+  if (document.getElementById('comment-input').value === '') {
+    document.getElementById('comment-button').disabled = true;
+  } else {
+    document.getElementById('comment-button').disabled = false;
   }
 }

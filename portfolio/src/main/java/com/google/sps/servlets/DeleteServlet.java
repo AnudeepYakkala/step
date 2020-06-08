@@ -16,10 +16,12 @@ import javax.servlet.http.HttpServletResponse;
  * from Datastore. Then, return an empty reponse.
  */
 @WebServlet("/delete-comments")
-public class DeleteServerlet extends HttpServlet {
+public class DeleteServlet extends HttpServlet {
+  private static final String COMMENT_KIND = "Comment";
+
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Query query = new Query("Comment");
+    Query query = new Query(COMMENT_KIND);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
