@@ -153,13 +153,14 @@ function updateButton() {  // eslint-disable-line no-unused-vars
 }
 
 function checkLoginStatus() {  // eslint-disable-line no-unused-vars
-  fetch('/login').then((response) => response.text()).then((message) => {
-    if (message === 'Logged In\n') {
+  fetch('/login').then((response) => response.json()).then((userLogin) => {
+    if (userLogin.isLoggedIn === true) {
       document.getElementById('comment-form').style.display = 'inline';
+      document.getElementById('login').innerText = 'Logout';
+      document.getElementById('login').href = userLogin.logoutUrl;
     } else {
       document.getElementById('comment-form').style.display = 'none';
-      document.getElementById('login').style.display = 'inline';
-      document.getElementById('login').href = message;
+      document.getElementById('login').href = userLogin.loginUrl;
     }
   });
 }

@@ -214,9 +214,13 @@ a:hover {
 }
 
 #login {
-  display: none;
+  background-color: #6c757d;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 5px 8px 5px 8px;
 }
-
 #num-comments-container {
   text-align: right;
 }
