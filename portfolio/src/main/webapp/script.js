@@ -153,6 +153,7 @@ function updateButton() {  // eslint-disable-line no-unused-vars
 }
 
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 
 function createMap() {
   const map = new google.maps.Map(
@@ -161,3 +162,4 @@ function createMap() {
 }
 
 /* eslint-enable no-unused-vars */
+/* eslint-enable no-undef */
