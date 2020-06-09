@@ -11,9 +11,11 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="style.css" />
+    <!-- Maps API script -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhJtNVM6e2BFsRcoKUcLGPEZrIUeB2yJk"></script>
     <script src="script.js"></script>
   </head>
-  <body onload="getComments()">
+  <body onload="getComments(); createMap()">
     <h1 id="name-text">ANUDEEP YAKKALA</h1>
 
     <!-- Random Quote -->
@@ -188,6 +190,14 @@
             <span class="sr-only">Next</span>
           </a>
         </div>
+      </div>
+    </div>
+
+    <!-- Favorite Restaurants -->
+    <div id="favorite-restaurants-container">
+      <div id="favorite-restaurants-content">
+        <p class="section-title">FAVORITE RESTAURANTS</p>
+        <div id="map"></div>
       </div>
     </div>
 

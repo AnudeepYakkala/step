@@ -226,3 +226,20 @@ a:hover {
 }
 
 /* comments end */
+
+/* favorite restaurants start */
+
+#favorite-restaurants-container {
+  background-color: #659dbd;
+}
+
+#favorite-restaurants-content {
+  padding-bottom: 2.5rem;
+}
+
+#map {
+  height: 50vh;
+  margin: 0 25% 0 25%;
+}
+
+/* favorite restaurants end */
