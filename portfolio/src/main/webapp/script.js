@@ -154,7 +154,7 @@ function updateButton() {  // eslint-disable-line no-unused-vars
 
 function checkLoginStatus() {  // eslint-disable-line no-unused-vars
   fetch('/login').then((response) => response.json()).then((userLogin) => {
-    if (userLogin.isLoggedIn === true) {
+    if (userLogin.isLoggedIn) {
       document.getElementById('comment-form').style.display = 'inline';
       document.getElementById('login').innerText = 'Logout';
       document.getElementById('login').href = userLogin.logoutUrl;
