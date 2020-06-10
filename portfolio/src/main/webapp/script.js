@@ -156,9 +156,10 @@ function updateButton() {  // eslint-disable-line no-unused-vars
 /* eslint-disable no-undef */
 
 function createMap() {
-  const map = new google.maps.Map(
-      document.getElementById('map'),
-      {center: {lat: 37.740043, lng: -121.902838}, zoom: 13});
+  const map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 37.740043, lng: -121.902838},
+    zoom: 13,
+  });
 
   const onTheBorderMarker = new google.maps.Marker({
     position: new google.maps.LatLng(37.703692, -121.885297),
