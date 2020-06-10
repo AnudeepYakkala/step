@@ -39,9 +39,9 @@ public class LoginServlet extends HttpServlet {
     UserLogin userLogin;
 
     if (userService.isUserLoggedIn()) {
-      userLogin = new UserLogin(true, loginUrl, logoutUrl);
+      userLogin = new UserLogin(/* User logged in=*/true, loginUrl, logoutUrl);
     } else {
-      userLogin = new UserLogin(false, loginUrl, logoutUrl);
+      userLogin = new UserLogin(/* User logged in=*/false, loginUrl, logoutUrl);
     }
     Gson gson = new Gson();
     response.setContentType(CONTENT_TYPE);
