@@ -15,7 +15,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhJtNVM6e2BFsRcoKUcLGPEZrIUeB2yJk"></script>
     <script src="script.js"></script>
   </head>
-  <body onload="getComments(); createMap()">
+  <body onload="getComments(); checkLoginStatus(); createMap()">
     <h1 id="name-text">ANUDEEP YAKKALA</h1>
 
     <!-- Random Quote -->
@@ -294,6 +294,7 @@
     <div id="comments-container">
       <div id="comments-content">
         <p class="section-title">COMMENTS</p>
+        <a id="login" href="">Login to Comment</a>
         <form id="comment-form" action="/data" method="post">
           <textarea
             id="comment-input"
