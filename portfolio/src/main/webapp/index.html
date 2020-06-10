@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
   </head>
-  <body onload="getComments()">
+  <body onload="getComments(); checkLoginStatus()">
     <h1 id="name-text">ANUDEEP YAKKALA</h1>
 
     <!-- Random Quote -->
@@ -284,6 +284,7 @@
     <div id="comments-container">
       <div id="comments-content">
         <p class="section-title">COMMENTS</p>
+        <a id="login" href="">Login to Comment</a>
         <form id="comment-form" action="/data" method="post">
           <textarea
             id="comment-input"
