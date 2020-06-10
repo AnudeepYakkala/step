@@ -158,7 +158,43 @@ function updateButton() {  // eslint-disable-line no-unused-vars
 function createMap() {
   const map = new google.maps.Map(
       document.getElementById('map'),
-      {center: {lat: 37.422, lng: -122.084}, zoom: 16});
+      {center: {lat: 37.740043, lng: -121.902838}, zoom: 13});
+
+  const onTheBorderMarker = new google.maps.Marker({
+    position: new google.maps.LatLng(37.703692, -121.885297),
+    title: 'On the Border',
+    map: map,
+  });
+  const bJsMarker = new google.maps.Marker({
+    position: new google.maps.LatLng(37.702720, -121.851593),
+    title: 'BJ\'s',
+    map: map,
+  });
+  const lazyDogMarker = new google.maps.Marker({
+    position: new google.maps.LatLng(37.704345, -121.887414),
+    title: 'Lazy Dog',
+    map: map,
+  });
+  const andamanMarker = new google.maps.Marker({
+    position: new google.maps.LatLng(37.764269, -121.951415),
+    title: 'Andaman Thai',
+    map: map,
+  });
+  const firehouseMarker = new google.maps.Marker({
+    position: new google.maps.LatLng(37.763902, -121.952664),
+    title: 'Firehouse No. 37',
+    map: map,
+  });
+  const cheesecakeMarker = new google.maps.Marker({
+    position: new google.LatLng(37.694068, -121.929190),
+    title: 'Cheesecake Factory',
+    map: map,
+  });
+  const chaatBhavanMaker = new google.maps.Marker({
+    position: new google.LatLng(37.704669, -121.865748),
+    title: 'Chaat Bhavan',
+    map: map,
+  });
 }
 
 /* eslint-enable no-unused-vars */
