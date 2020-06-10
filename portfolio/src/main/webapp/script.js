@@ -192,7 +192,7 @@ function createMap() {
     map: map,
   });
   const chaatBhavanMaker = new google.maps.Marker({
-    position: new google.LatLng(37.704669, -121.865748),
+    position: new google.maps.LatLng(37.704669, -121.865748),
     title: 'Chaat Bhavan',
     map: map,
   });
