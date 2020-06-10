@@ -187,7 +187,7 @@ function createMap() {
     map: map,
   });
   const cheesecakeMarker = new google.maps.Marker({
-    position: new google.LatLng(37.694068, -121.929190),
+    position: new google.maps.LatLng(37.694068, -121.929190),
     title: 'Cheesecake Factory',
     map: map,
   });
