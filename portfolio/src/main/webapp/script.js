@@ -158,44 +158,23 @@ function updateButton() {  // eslint-disable-line no-unused-vars
 function createMap() {
   const map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 37.740043, lng: -121.902838},
-    zoom: 13,
+    zoom: 12,
   });
 
-  const onTheBorderMarker = new google.maps.Marker({
-    position: new google.maps.LatLng(37.703692, -121.885297),
-    title: 'On the Border',
-    map: map,
-  });
-  const bJsMarker = new google.maps.Marker({
-    position: new google.maps.LatLng(37.702720, -121.851593),
-    title: 'BJ\'s',
-    map: map,
-  });
-  const lazyDogMarker = new google.maps.Marker({
-    position: new google.maps.LatLng(37.704345, -121.887414),
-    title: 'Lazy Dog',
-    map: map,
-  });
-  const andamanMarker = new google.maps.Marker({
-    position: new google.maps.LatLng(37.764269, -121.951415),
-    title: 'Andaman Thai',
-    map: map,
-  });
-  const firehouseMarker = new google.maps.Marker({
-    position: new google.maps.LatLng(37.763902, -121.952664),
-    title: 'Firehouse No. 37',
-    map: map,
-  });
-  const cheesecakeMarker = new google.maps.Marker({
-    position: new google.maps.LatLng(37.694068, -121.929190),
-    title: 'Cheesecake Factory',
-    map: map,
-  });
-  const chaatBhavanMaker = new google.maps.Marker({
-    position: new google.maps.LatLng(37.704669, -121.865748),
-    title: 'Chaat Bhavan',
-    map: map,
-  });
+  const onTheBorderMarker = createMarker(37.703692, -121.885297, 'On the Border', map);
+  const lazyDogMarker = createMarker(37.704345, -121.887414, 'Lazy Dog', map);
+  const andamanMarker = createMarker(37.764269, -121.951415, 'Andaman Thai', map);
+  const firehouseMarker = createMarker(37.763902, -121.952664, 'Firehouse No. 37', map);
+  const cheesecakeMarker = createMarker(37.694068, -121.929190, 'Cheesecake Factory', map);
+  const chaatBhavanMaker = createMarker(37.704669, -121.865748, 'Chaat Bhavan', map);
+}
+
+function createMarker(lat, lng, title, map) {
+    return new google.maps.Marker({
+        position: new google.maps.LatLng(lat, lng),
+        title,
+        map,
+    });
 }
 
 /* eslint-enable no-unused-vars */
