@@ -161,20 +161,25 @@ function createMap() {
     zoom: 12,
   });
 
-  const onTheBorderMarker = createMarker(37.703692, -121.885297, 'On the Border', map);
+  const onTheBorderMarker =
+      createMarker(37.703692, -121.885297, 'On the Border', map);
   const lazyDogMarker = createMarker(37.704345, -121.887414, 'Lazy Dog', map);
-  const andamanMarker = createMarker(37.764269, -121.951415, 'Andaman Thai', map);
-  const firehouseMarker = createMarker(37.763902, -121.952664, 'Firehouse No. 37', map);
-  const cheesecakeMarker = createMarker(37.694068, -121.929190, 'Cheesecake Factory', map);
-  const chaatBhavanMaker = createMarker(37.704669, -121.865748, 'Chaat Bhavan', map);
+  const andamanMarker =
+      createMarker(37.764269, -121.951415, 'Andaman Thai', map);
+  const firehouseMarker =
+      createMarker(37.763902, -121.952664, 'Firehouse No. 37', map);
+  const cheesecakeMarker =
+      createMarker(37.694068, -121.929190, 'Cheesecake Factory', map);
+  const chaatBhavanMaker =
+      createMarker(37.704669, -121.865748, 'Chaat Bhavan', map);
 }
 
 function createMarker(lat, lng, title, map) {
-    return new google.maps.Marker({
-        position: new google.maps.LatLng(lat, lng),
-        title,
-        map,
-    });
+  return new google.maps.Marker({
+    position: new google.maps.LatLng(lat, lng),
+    title,
+    map,
+  });
 }
 
 /* eslint-enable no-unused-vars */
