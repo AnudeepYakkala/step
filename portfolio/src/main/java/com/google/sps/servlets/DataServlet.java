@@ -20,6 +20,8 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.google.common.collect.Iterables;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -32,11 +34,22 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  private static final String COMMENT_EMAIL = "Email";
   private static final String COMMENT_KIND = "Comment";
   private static final String COMMENT_TIMESTAMP = "timestamp";
   private static final String CONTENT_TYPE = "text/html;";
   private static final String COMMENT_VALUE = "text";
   private static final String DEFAULT_MAX_COMMENTS = "20";
+
+  private class Comment {
+    private String text;
+    private String email;
+
+    public Comment(String text, String email) {
+      this.text = text;
+      this.email = email;
+    }
+  }
 
   /**
    * Get comments from Datastore and add them to an ArrayList. Convert
@@ -50,10 +63,11 @@ public class DataServlet extends HttpServlet {
     int maxComments =
         Integer.parseInt(getParameter(request, "max-comments").orElse(DEFAULT_MAX_COMMENTS));
 
-    ArrayList<String> comments = new ArrayList<>();
+    ArrayList<Comment> comments = new ArrayList<>();
     for (Entity entity : Iterables.limit(results.asIterable(), maxComments)) {
-      String comment = (String) entity.getProperty(COMMENT_VALUE);
-      comments.add(comment);
+      String text = (String) entity.getProperty(COMMENT_VALUE);
+      String email = (String) entity.getProperty(COMMENT_EMAIL);
+      comments.add(new Comment(text, email));
     }
 
     response.setContentType(CONTENT_TYPE);
@@ -67,11 +81,13 @@ public class DataServlet extends HttpServlet {
    */
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    UserService userService = UserServiceFactory.getUserService();
     Optional<String> comment = getParameter(request, "text-input");
     if (comment.isPresent()) {
       Entity commentEntity = new Entity(COMMENT_KIND);
       commentEntity.setProperty(COMMENT_VALUE, comment.get());
       commentEntity.setProperty(COMMENT_TIMESTAMP, System.currentTimeMillis());
+      commentEntity.setProperty(COMMENT_EMAIL, userService.getCurrentUser().getEmail());
 
       DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
       datastore.put(commentEntity);
@@ -83,7 +99,7 @@ public class DataServlet extends HttpServlet {
   /**
    * @return the ArrayList paramater converted to a json format.
    */
-  public String convertMessageToJson(ArrayList<String> messages) {
+  public String convertMessageToJson(ArrayList<Comment> messages) {
     Gson gson = new Gson();
     String json = gson.toJson(messages);
     return json;

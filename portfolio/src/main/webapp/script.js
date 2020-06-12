@@ -112,7 +112,8 @@ function getComments() {  // eslint-disable-line no-unused-vars
         const commentsElement = document.getElementById('comments');
         commentsElement.innerHTML = '';
         messages.forEach((message) => {
-          commentsElement.appendChild(createListElement(message));
+          commentsElement.appendChild(
+              createListElement(message.email + '\n' + message.text));
         });
       });
 }
