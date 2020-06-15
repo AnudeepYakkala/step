@@ -12,6 +12,7 @@ pretty: node_modules
 	find portfolio/src/main/java -iname *.java | xargs $(CLANG_FORMAT) -i
 	find walkthroughs/week-5-tdd/project/src/main/java -iname *.java | xargs $(CLANG_FORMAT) -i
 	find portfolio/src/main/webapp -iname *.js | xargs $(CLANG_FORMAT) -i
+	find walkthroughs/week-5-tdd/project/src/test/java -iname *.java | xargs $(CLANG_FORMAT) -i
 
 validate: node_modules
 	$(HTML_VALIDATE) portfolio/src/main/webapp/*.html

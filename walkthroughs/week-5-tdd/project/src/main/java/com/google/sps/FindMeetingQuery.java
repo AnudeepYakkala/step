@@ -17,19 +17,21 @@ package com.google.sps;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public final class FindMeetingQuery {
   /*
-   * @return the Collection of TimeRanges containing all the possible time frames to schedule
+   * Returns the Collection of TimeRanges containing all the possible time frames to schedule
    * the request ensuring that the attandees don't have any conflicts with other events.
    */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     if (!request.getOptionalAttendees().isEmpty()) {
-      ArrayList<TimeRange> requestAttendeeRanges =
+      List<TimeRange> requestAttendeeRanges =
           filterRequestAttendeeTimeRangesOptional(events, request.getAttendees(), request.getOptionalAttendees());
       Collections.sort(requestAttendeeRanges, TimeRange.ORDER_BY_START);
       requestAttendeeRanges = combineOverlaps(requestAttendeeRanges);
-      ArrayList<TimeRange> noConflicts =
+      List<TimeRange> noConflicts =
           findMeetingRangesWithNoConflict(requestAttendeeRanges, request.getDuration());
       if (!noConflicts.isEmpty()) {
         return noConflicts;
@@ -37,7 +39,7 @@ public final class FindMeetingQuery {
         return Collections.emptyList();
       }
     }
-    ArrayList<TimeRange> requestAttendeeRanges =
+    List<TimeRange> requestAttendeeRanges =
         filterRequestAttendeeTimeRanges(events, request.getAttendees());
     Collections.sort(requestAttendeeRanges, TimeRange.ORDER_BY_START);
     requestAttendeeRanges = combineOverlaps(requestAttendeeRanges);
@@ -45,21 +47,18 @@ public final class FindMeetingQuery {
   }
 
   /*
-   * @return an ArrayList of all the events with at least one attendee from the request.
+   * Returns a List of all the events with at least one attendee from the request.
    */
-  private ArrayList<TimeRange> filterRequestAttendeeTimeRanges(
+  private List<TimeRange> filterToRequestAttendeeTimeRanges(
       Collection<Event> events, Collection<String> requestAttendees) {
-    ArrayList<TimeRange> requestAttendeeRanges = new ArrayList<>();
-    for (Event event : events) {
-      if (!Collections.disjoint(event.getAttendees(), requestAttendees)) {
-        requestAttendeeRanges.add(event.getWhen());
-      }
-    }
-    return requestAttendeeRanges;
+    return events.stream()
+        .filter(event -> !Collections.disjoint(event.getAttendees(), requestAttendees))
+        .map(event -> event.getWhen())
+        .collect(Collectors.toList());
   }
 
   /*
-   * @return an ArrayList of all the events with at least one attendee or one optional
+   * Returns a List of all the events with at least one attendee or one optional
    * attendee from the request.
    */
   private ArrayList<TimeRange> filterRequestAttendeeTimeRangesOptional(Collection<Event> events,
@@ -75,10 +74,10 @@ public final class FindMeetingQuery {
   }
 
   /*
-   * @return an ArrayList with all the overlapping TimeRanges combined
+   * Returns a List with all the overlapping TimeRanges combined.
    */
-  private ArrayList<TimeRange> combineOverlaps(ArrayList<TimeRange> ranges) {
-    ArrayList<TimeRange> combinedRanges = new ArrayList<>();
+  private List<TimeRange> combineOverlaps(List<TimeRange> ranges) {
+    List<TimeRange> result = new ArrayList<>();
     for (int i = 0; i < ranges.size(); i++) {
       TimeRange currentRange = ranges.get(i);
       while (i + 1 < ranges.size() && currentRange.overlaps(ranges.get(i + 1))) {
@@ -88,32 +87,31 @@ public final class FindMeetingQuery {
             /* inclusive=*/false);
         i++;
       }
-      combinedRanges.add(currentRange);
+      result.add(currentRange);
     }
-    return combinedRanges;
+    return result;
   }
 
   /*
-   * @return an ArrayList containing all the TimeRanges with no conflict that are long enough for
+   * Returns a List containing all the TimeRanges with no conflict that are long enough for
    * the request.
    */
-  private ArrayList<TimeRange> findMeetingRangesWithNoConflict(
-      ArrayList<TimeRange> ranges, long requestDuration) {
-    ArrayList<TimeRange> noConflictRanges = new ArrayList<>();
+  private List<TimeRange> findMeetingRangesWithNoConflict(
+      List<TimeRange> ranges, long requestDuration) {
+    List<TimeRange> result = new ArrayList<>();
     int currentStart = TimeRange.START_OF_DAY;
     // Find all the ranges with no conflicts that are long enough for the request meeting.
     for (TimeRange meetingRange : ranges) {
       if (meetingRange.start() - currentStart >= requestDuration) {
-        noConflictRanges.add(
+        result.add(
             TimeRange.fromStartEnd(currentStart, meetingRange.start(), /* inclusive=*/false));
       }
       currentStart = meetingRange.end();
     }
     // Check if there is time left for the request between the last meeting and the end of the day.
     if (TimeRange.END_OF_DAY - currentStart >= requestDuration) {
-      noConflictRanges.add(
-          TimeRange.fromStartEnd(currentStart, TimeRange.END_OF_DAY, /* inclusive=*/true));
+      result.add(TimeRange.fromStartEnd(currentStart, TimeRange.END_OF_DAY, /* inclusive=*/true));
     }
-    return noConflictRanges;
+    return result;
   }
 }
