@@ -31,10 +31,10 @@ public final class FindMeetingQuery {
           events, request.getAttendees(), request.getOptionalAttendees());
       Collections.sort(requestAttendeeRanges, TimeRange.ORDER_BY_START);
       requestAttendeeRanges = combineOverlaps(requestAttendeeRanges);
-      List<TimeRange> results =
+      List<TimeRange> result =
           findMeetingRangesWithNoConflict(requestAttendeeRanges, request.getDuration());
-      if (!results.isEmpty()) {
-        return results;
+      if (!result.isEmpty()) {
+        return result;
       } else if (request.getAttendees().isEmpty()) {
         return Collections.emptyList();
       }
