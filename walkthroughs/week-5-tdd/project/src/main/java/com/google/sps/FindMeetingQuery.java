@@ -27,8 +27,8 @@ public final class FindMeetingQuery {
    */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     if (!request.getOptionalAttendees().isEmpty()) {
-      List<TimeRange> requestAttendeeRanges =
-          filterRequestAttendeeTimeRangesOptional(events, request.getAttendees(), request.getOptionalAttendees());
+      List<TimeRange> requestAttendeeRanges = filterToRequestAttendeeTimeRangesOptional(
+          events, request.getAttendees(), request.getOptionalAttendees());
       Collections.sort(requestAttendeeRanges, TimeRange.ORDER_BY_START);
       requestAttendeeRanges = combineOverlaps(requestAttendeeRanges);
       List<TimeRange> noConflicts =
@@ -40,7 +40,7 @@ public final class FindMeetingQuery {
       }
     }
     List<TimeRange> requestAttendeeRanges =
-        filterRequestAttendeeTimeRanges(events, request.getAttendees());
+        filterToRequestAttendeeTimeRanges(events, request.getAttendees());
     Collections.sort(requestAttendeeRanges, TimeRange.ORDER_BY_START);
     requestAttendeeRanges = combineOverlaps(requestAttendeeRanges);
     return findMeetingRangesWithNoConflict(requestAttendeeRanges, request.getDuration());
@@ -61,16 +61,14 @@ public final class FindMeetingQuery {
    * Returns a List of all the events with at least one attendee or one optional
    * attendee from the request.
    */
-  private ArrayList<TimeRange> filterRequestAttendeeTimeRangesOptional(Collection<Event> events,
+  private List<TimeRange> filterToRequestAttendeeTimeRangesOptional(Collection<Event> events,
       Collection<String> requestAttendees, Collection<String> optionalRequestAttendees) {
-    ArrayList<TimeRange> requestAttendeeRanges = new ArrayList<>();
-    for (Event event : events) {
-      if ((!Collections.disjoint(event.getAttendees(), requestAttendees))
-          || (!Collections.disjoint(event.getAttendees(), optionalRequestAttendees))) {
-        requestAttendeeRanges.add(event.getWhen());
-      }
-    }
-    return requestAttendeeRanges;
+    return events.stream()
+        .filter(event
+            -> (!Collections.disjoint(event.getAttendees(), requestAttendees)
+                || !Collections.disjoint(event.getAttendees(), optionalRequestAttendees)))
+        .map(event -> event.getWhen())
+        .collect(Collectors.toList());
   }
 
   /*
