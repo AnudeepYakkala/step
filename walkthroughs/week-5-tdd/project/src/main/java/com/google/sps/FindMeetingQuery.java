@@ -14,10 +14,10 @@
 
 package com.google.sps;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public final class FindMeetingQuery {
@@ -38,13 +38,10 @@ public final class FindMeetingQuery {
    */
   private List<TimeRange> filterToRequestAttendeeTimeRanges(
       Collection<Event> events, Collection<String> requestAttendees) {
-    List<TimeRange> requestAttendeeRanges = new ArrayList<>();
-    for (Event event : events) {
-      if (!Collections.disjoint(event.getAttendees(), requestAttendees)) {
-        requestAttendeeRanges.add(event.getWhen());
-      }
-    }
-    return requestAttendeeRanges;
+    return events.stream()
+        .filter(event -> !Collections.disjoint(event.getAttendees(), requestAttendees))
+        .map(event -> event.getWhen())
+        .collect(Collectors.toList());
   }
 
   /*
@@ -84,8 +81,7 @@ public final class FindMeetingQuery {
     }
     // Check if there is time left for the request between the last meeting and the end of the day.
     if (TimeRange.END_OF_DAY - currentStart >= requestDuration) {
-      result.add(
-          TimeRange.fromStartEnd(currentStart, TimeRange.END_OF_DAY, /* inclusive=*/true));
+      result.add(TimeRange.fromStartEnd(currentStart, TimeRange.END_OF_DAY, /* inclusive=*/true));
     }
     return result;
   }
