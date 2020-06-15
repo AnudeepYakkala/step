@@ -14,9 +14,11 @@
 
 package com.google.sps;
 
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 public final class FindMeetingQuery {
   /*
@@ -24,7 +26,7 @@ public final class FindMeetingQuery {
    * the request ensuring that the attandees don't have any conflicts with other events.
    */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    ArrayList<TimeRange> requestAttendeeRanges =
+    List<TimeRange> requestAttendeeRanges =
         filterToRequestAttendeeTimeRanges(events, request.getAttendees());
     Collections.sort(requestAttendeeRanges, TimeRange.ORDER_BY_START);
     requestAttendeeRanges = combineOverlaps(requestAttendeeRanges);
@@ -34,22 +36,22 @@ public final class FindMeetingQuery {
   /*
    * Returns an ArrayList of all the events with at least one attendee from the request.
    */
-  private ArrayList<TimeRange> filterToRequestAttendeeTimeRanges(
+  private List<TimeRange> filterToRequestAttendeeTimeRanges(
       Collection<Event> events, Collection<String> requestAttendees) {
-    ArrayList<TimeRange> result = new ArrayList<>();
+    List<TimeRange> requestAttendeeRanges = new ArrayList<>();
     for (Event event : events) {
       if (!Collections.disjoint(event.getAttendees(), requestAttendees)) {
-        result.add(event.getWhen());
+        requestAttendeeRanges.add(event.getWhen());
       }
     }
-    return result;
+    return requestAttendeeRanges;
   }
 
   /*
    * Returns an ArrayList with all the overlapping TimeRanges combined
    */
-  private ArrayList<TimeRange> combineOverlaps(ArrayList<TimeRange> ranges) {
-    ArrayList<TimeRange> result = new ArrayList<>();
+  private List<TimeRange> combineOverlaps(List<TimeRange> ranges) {
+    List<TimeRange> result = new ArrayList<>();
     for (int i = 0; i < ranges.size(); i++) {
       TimeRange currentRange = ranges.get(i);
       while (i + 1 < ranges.size() && currentRange.overlaps(ranges.get(i + 1))) {
@@ -68,9 +70,9 @@ public final class FindMeetingQuery {
    * Returns an ArrayList containing all the TimeRanges with no conflict that are long enough for
    * the request.
    */
-  private ArrayList<TimeRange> findMeetingRangesWithNoConflict(
-      ArrayList<TimeRange> ranges, long requestDuration) {
-    ArrayList<TimeRange> result = new ArrayList<>();
+  private List<TimeRange> findMeetingRangesWithNoConflict(
+      List<TimeRange> ranges, long requestDuration) {
+    List<TimeRange> result = new ArrayList<>();
     int currentStart = TimeRange.START_OF_DAY;
     // Find all the ranges with no conflicts that are long enough for the request meeting.
     for (TimeRange meetingRange : ranges) {
