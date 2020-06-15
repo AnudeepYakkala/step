@@ -20,7 +20,7 @@ import java.util.Collections;
 
 public final class FindMeetingQuery {
   /*
-   * @return the Collection of TimeRanges containing all the possible time frames to schedule
+   * Returns the Collection of TimeRanges containing all the possible time frames to schedule
    * the request ensuring that the attandees don't have any conflicts with other events.
    */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
@@ -32,7 +32,7 @@ public final class FindMeetingQuery {
   }
 
   /*
-   * @return an ArrayList of all the events with at least one attendee from the request.
+   * Returns an ArrayList of all the events with at least one attendee from the request.
    */
   private ArrayList<TimeRange> filterRequestAttendeeTimeRanges(
       Collection<Event> events, Collection<String> requestAttendees) {
@@ -46,7 +46,7 @@ public final class FindMeetingQuery {
   }
 
   /*
-   * @return an ArrayList with all the overlapping TimeRanges combined
+   * Returns an ArrayList with all the overlapping TimeRanges combined
    */
   private ArrayList<TimeRange> combineOverlaps(ArrayList<TimeRange> ranges) {
     ArrayList<TimeRange> combinedRanges = new ArrayList<>();
@@ -65,7 +65,7 @@ public final class FindMeetingQuery {
   }
 
   /*
-   * @return an ArrayList containing all the TimeRanges with no conflict that are long enough for
+   * Returns an ArrayList containing all the TimeRanges with no conflict that are long enough for
    * the request.
    */
   private ArrayList<TimeRange> findMeetingRangesWithNoConflict(
