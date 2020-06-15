@@ -36,20 +36,20 @@ public final class FindMeetingQuery {
    */
   private ArrayList<TimeRange> filterToRequestAttendeeTimeRanges(
       Collection<Event> events, Collection<String> requestAttendees) {
-    ArrayList<TimeRange> requestAttendeeRanges = new ArrayList<>();
+    ArrayList<TimeRange> result = new ArrayList<>();
     for (Event event : events) {
       if (!Collections.disjoint(event.getAttendees(), requestAttendees)) {
-        requestAttendeeRanges.add(event.getWhen());
+        result.add(event.getWhen());
       }
     }
-    return requestAttendeeRanges;
+    return result;
   }
 
   /*
    * Returns an ArrayList with all the overlapping TimeRanges combined
    */
   private ArrayList<TimeRange> combineOverlaps(ArrayList<TimeRange> ranges) {
-    ArrayList<TimeRange> combinedRanges = new ArrayList<>();
+    ArrayList<TimeRange> result = new ArrayList<>();
     for (int i = 0; i < ranges.size(); i++) {
       TimeRange currentRange = ranges.get(i);
       while (i + 1 < ranges.size() && currentRange.overlaps(ranges.get(i + 1))) {
@@ -59,9 +59,9 @@ public final class FindMeetingQuery {
             /* inclusive=*/false);
         i++;
       }
-      combinedRanges.add(currentRange);
+      result.add(currentRange);
     }
-    return combinedRanges;
+    return result;
   }
 
   /*
@@ -70,21 +70,21 @@ public final class FindMeetingQuery {
    */
   private ArrayList<TimeRange> findMeetingRangesWithNoConflict(
       ArrayList<TimeRange> ranges, long requestDuration) {
-    ArrayList<TimeRange> noConflictRanges = new ArrayList<>();
+    ArrayList<TimeRange> result = new ArrayList<>();
     int currentStart = TimeRange.START_OF_DAY;
     // Find all the ranges with no conflicts that are long enough for the request meeting.
     for (TimeRange meetingRange : ranges) {
       if (meetingRange.start() - currentStart >= requestDuration) {
-        noConflictRanges.add(
+        result.add(
             TimeRange.fromStartEnd(currentStart, meetingRange.start(), /* inclusive=*/false));
       }
       currentStart = meetingRange.end();
     }
     // Check if there is time left for the request between the last meeting and the end of the day.
     if (TimeRange.END_OF_DAY - currentStart >= requestDuration) {
-      noConflictRanges.add(
+      result.add(
           TimeRange.fromStartEnd(currentStart, TimeRange.END_OF_DAY, /* inclusive=*/true));
     }
-    return noConflictRanges;
+    return result;
   }
 }
