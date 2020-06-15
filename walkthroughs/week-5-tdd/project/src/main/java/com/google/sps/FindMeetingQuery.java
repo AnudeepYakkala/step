@@ -24,6 +24,19 @@ public final class FindMeetingQuery {
    * the request ensuring that the attandees don't have any conflicts with other events.
    */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+    if (!request.getOptionalAttendees().isEmpty()) {
+      ArrayList<TimeRange> requestAttendeeRanges =
+          filterRequestAttendeeTimeRangesOptional(events, request.getAttendees(), request.getOptionalAttendees());
+      Collections.sort(requestAttendeeRanges, TimeRange.ORDER_BY_START);
+      requestAttendeeRanges = combineOverlaps(requestAttendeeRanges);
+      ArrayList<TimeRange> noConflicts =
+          findMeetingRangesWithNoConflict(requestAttendeeRanges, request.getDuration());
+      if (!noConflicts.isEmpty()) {
+        return noConflicts;
+      } else if (request.getAttendees().isEmpty()) {
+        return Collections.emptyList();
+      }
+    }
     ArrayList<TimeRange> requestAttendeeRanges =
         filterRequestAttendeeTimeRanges(events, request.getAttendees());
     Collections.sort(requestAttendeeRanges, TimeRange.ORDER_BY_START);
@@ -39,6 +52,22 @@ public final class FindMeetingQuery {
     ArrayList<TimeRange> requestAttendeeRanges = new ArrayList<>();
     for (Event event : events) {
       if (!Collections.disjoint(event.getAttendees(), requestAttendees)) {
+        requestAttendeeRanges.add(event.getWhen());
+      }
+    }
+    return requestAttendeeRanges;
+  }
+
+  /*
+   * @return an ArrayList of all the events with at least one attendee or one optional
+   * attendee from the request.
+   */
+  private ArrayList<TimeRange> filterRequestAttendeeTimeRangesOptional(Collection<Event> events,
+      Collection<String> requestAttendees, Collection<String> optionalRequestAttendees) {
+    ArrayList<TimeRange> requestAttendeeRanges = new ArrayList<>();
+    for (Event event : events) {
+      if ((!Collections.disjoint(event.getAttendees(), requestAttendees))
+          || (!Collections.disjoint(event.getAttendees(), optionalRequestAttendees))) {
         requestAttendeeRanges.add(event.getWhen());
       }
     }
