@@ -25,7 +25,7 @@ public final class FindMeetingQuery {
    */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     ArrayList<TimeRange> requestAttendeeRanges =
-        filterRequestAttendeeTimeRanges(events, request.getAttendees());
+        filterToRequestAttendeeTimeRanges(events, request.getAttendees());
     Collections.sort(requestAttendeeRanges, TimeRange.ORDER_BY_START);
     requestAttendeeRanges = combineOverlaps(requestAttendeeRanges);
     return findMeetingRangesWithNoConflict(requestAttendeeRanges, request.getDuration());
@@ -34,7 +34,7 @@ public final class FindMeetingQuery {
   /*
    * Returns an ArrayList of all the events with at least one attendee from the request.
    */
-  private ArrayList<TimeRange> filterRequestAttendeeTimeRanges(
+  private ArrayList<TimeRange> filterToRequestAttendeeTimeRanges(
       Collection<Event> events, Collection<String> requestAttendees) {
     ArrayList<TimeRange> requestAttendeeRanges = new ArrayList<>();
     for (Event event : events) {
