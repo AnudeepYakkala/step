@@ -27,18 +27,22 @@ public final class FindMeetingQuery {
    */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     if (!request.getOptionalAttendees().isEmpty()) {
-      List<TimeRange> requestAttendeeRanges = filterToRequestAttendeeTimeRangesOptional(
+      List<TimeRange> requestAttendeeRangesWithOptional = filterToRequestAttendeeTimeRangesOptional(
           events, request.getAttendees(), request.getOptionalAttendees());
-      Collections.sort(requestAttendeeRanges, TimeRange.ORDER_BY_START);
-      requestAttendeeRanges = combineOverlaps(requestAttendeeRanges);
+      Collections.sort(requestAttendeeRangesWithOptional, TimeRange.ORDER_BY_START);
+      requestAttendeeRangesWithOptional = combineOverlaps(requestAttendeeRangesWithOptional);
       List<TimeRange> result =
-          findMeetingRangesWithNoConflict(requestAttendeeRanges, request.getDuration());
+          findMeetingRangesWithNoConflict(requestAttendeeRangesWithOptional, request.getDuration());
       if (!result.isEmpty()) {
         return result;
       } else if (request.getAttendees().isEmpty()) {
+        // If there are no mandotory attendees and no non-conflicting times for optional
+        // attendees, return an empty list.
         return Collections.emptyList();
       }
     }
+    // If there are no times where all the optional and mandotory attendees can attend,
+    // check for times where all the mandotory attendees can attend.
     List<TimeRange> requestAttendeeRanges =
         filterToRequestAttendeeTimeRanges(events, request.getAttendees());
     Collections.sort(requestAttendeeRanges, TimeRange.ORDER_BY_START);
