@@ -26,6 +26,23 @@ public final class FindMeetingQuery {
    * the request ensuring that the attandees don't have any conflicts with other events.
    */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+    if (!request.getOptionalAttendees().isEmpty()) {
+      List<TimeRange> requestAttendeeRangesWithOptional = filterToRequestAttendeeTimeRangesOptional(
+          events, request.getAttendees(), request.getOptionalAttendees());
+      Collections.sort(requestAttendeeRangesWithOptional, TimeRange.ORDER_BY_START);
+      requestAttendeeRangesWithOptional = combineOverlaps(requestAttendeeRangesWithOptional);
+      List<TimeRange> result =
+          findMeetingRangesWithNoConflict(requestAttendeeRangesWithOptional, request.getDuration());
+      if (!result.isEmpty()) {
+        return result;
+      } else if (request.getAttendees().isEmpty()) {
+        // If there are no mandotory attendees and no non-conflicting times for optional
+        // attendees, return an empty list.
+        return Collections.emptyList();
+      }
+    }
+    // If there are no times where all the optional and mandotory attendees can attend,
+    // check for times where all the mandotory attendees can attend.
     List<TimeRange> requestAttendeeRanges =
         filterToRequestAttendeeTimeRanges(events, request.getAttendees());
     Collections.sort(requestAttendeeRanges, TimeRange.ORDER_BY_START);
@@ -34,7 +51,7 @@ public final class FindMeetingQuery {
   }
 
   /*
-   * Returns an ArrayList of all the events with at least one attendee from the request.
+   * Returns a List of all the events with at least one attendee from the request.
    */
   private List<TimeRange> filterToRequestAttendeeTimeRanges(
       Collection<Event> events, Collection<String> requestAttendees) {
@@ -45,7 +62,21 @@ public final class FindMeetingQuery {
   }
 
   /*
-   * Returns an ArrayList with all the overlapping TimeRanges combined
+   * Returns a List of all the events with at least one attendee or one optional
+   * attendee from the request.
+   */
+  private List<TimeRange> filterToRequestAttendeeTimeRangesOptional(Collection<Event> events,
+      Collection<String> requestAttendees, Collection<String> optionalRequestAttendees) {
+    return events.stream()
+        .filter(event
+            -> (!Collections.disjoint(event.getAttendees(), requestAttendees)
+                || !Collections.disjoint(event.getAttendees(), optionalRequestAttendees)))
+        .map(event -> event.getWhen())
+        .collect(Collectors.toList());
+  }
+
+  /*
+   * Returns a List with all the overlapping TimeRanges combined.
    */
   private List<TimeRange> combineOverlaps(List<TimeRange> ranges) {
     List<TimeRange> result = new ArrayList<>();
@@ -64,7 +95,7 @@ public final class FindMeetingQuery {
   }
 
   /*
-   * Returns an ArrayList containing all the TimeRanges with no conflict that are long enough for
+   * Returns a List containing all the TimeRanges with no conflict that are long enough for
    * the request.
    */
   private List<TimeRange> findMeetingRangesWithNoConflict(
